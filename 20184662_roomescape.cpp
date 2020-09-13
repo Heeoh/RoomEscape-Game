@@ -367,22 +367,22 @@ int main(){
 
 	// open right door 
 	door3->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)-> bool {
-		if (locked)										// 잠금 해제 X -> 메시지 띄우기
-			showMessage("문이 잠겨있다.");
-
-		else if (isOpen3)								// 문이 열린 상태 & 잠금 해제 O -> 게임종료
+		if (locked2)										// 문이 닫힌 상태 & 잠금해제 X -> 메세지 띄우기
+			showMessage("잠겨있어. 비밀번호가 필요해!!");
+		else if (isOpen3) {								// 문이 열린 상태 -> room 2로 이동
 			endGame();
-		else {											// 문이 닫힌 상태 & 잠금 해제 O -> 문 열기
-			door3->setImage("images/door3_open.png");
+		}
+		else {
+			door3->setImage("images/door3_open.png");	// 문이 닫힌 상태 & 잠금해제 O -> 문 열기
 			isOpen3 = true;
 		}
 
 		return true;
-	});
+		});
 
 	door3->setOnKeypadCallback([&](ObjectPtr object)-> bool {
 		showMessage("철커덕");
-		locked = false;
+		locked2 = false;
 		return true;
 	});
 
