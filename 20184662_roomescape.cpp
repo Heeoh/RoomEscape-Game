@@ -164,8 +164,11 @@ int main(){
 
 	// puzzle game
 	puzzle1->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)-> bool {
-		int i = 1;
-		while (puzzleNum[i] != 1 || i < 10)   i++;  // p1의 현재 위치 찾기
+		int i = 0;
+		do {
+			i++;
+		} while (puzzleNum[i] != 1 || i < 10);  // p1의 현재 위치 찾기
+
 		if (movePuzzle(puzzle1, &(location[1]), direction[i], action, inCloset)) {
 
 			puzzleNum[puzzleNum[0]] = 1, puzzleNum[i] = 0, puzzleNum[0] = i;  // puzzleNum[] 수정
@@ -345,13 +348,13 @@ int main(){
 	auto memoboard = Object::create("images/memoboard.png", scene2, 600, 350);
 	memoboard->setScale(0.4f);
 
-	auto tornMemo1 = Object::create("images/tornMemo1.png", scene2, 620, 360, false);
+	auto tornMemo1 = Object::create("images/tornMemo1.png", scene2, 620, 360);
 	tornMemo1->setScale(0.05f);
 
-	auto tornMemo2 = Object::create("images/tornMemo2.png", scene2, 720, 340, false);
+	auto tornMemo2 = Object::create("images/tornMemo2.png", scene2, 720, 340);
 	tornMemo2->setScale(0.05f);
 
-	auto memo = Object::create("images/memo.png", scene2, 720, 340);
+	auto memo = Object::create("images/memo.png");
 	memo->setScale(0.04f);
 
 	auto isMoved = false;
@@ -401,6 +404,8 @@ int main(){
 		return true;
 	});
 
+	memo->defineCombination(tornMemo1, tornMemo2);
+	
 	tornMemo1->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)-> bool {
 		tornMemo1->pick();
 		return true;
@@ -411,10 +416,12 @@ int main(){
 		return true;
 	});
 
-	memo->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)-> bool {
-		memo->pick();
-		return true;
-	});
+	
+
+	//memo->setOnMouseCallback([&](ObjectPtr object, int x, int y, MouseAction action)-> bool {
+		//memo->pick();
+		//return true;
+	//});
 
 
 
